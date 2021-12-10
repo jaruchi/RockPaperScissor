@@ -10,28 +10,25 @@ public class Player extends BasePlayer{
     }
 
     public void render() {
-        System.out.println("Type 'rock', 'paper', or 'scissors' to play.\n" +
-                "Type 'quit' to go back to the main menu.");
+        System.out.println("Type 'rock', 'paper', or 'scissors' to play.");
         System.out.println();
-
     }
 
     @Override
-    public String getUserInput() {
+    public String getUserInput() throws Exception {
         System.out.println();
         Scanner scanner = new Scanner(System.in);
         System.out.print(this.getPlayerName()+" - your choice: ");
         String userInput = scanner.nextLine().toLowerCase();
         if (!validateUserInput(userInput)) {
-            System.out.println();
-            System.out.println("Please provide a valid input...");
-            userInput = getUserInput();
+
+            throw new Exception( );
         }
         return userInput;
     }
 
     public boolean validateUserInput(String input) {
-        return input.equals("rock") || input.equals("paper") || input.equals("scissors")|| input.equals("quit");
+        return input.equals("rock") || input.equals("paper") || input.equals("scissors");
     }
 
 }

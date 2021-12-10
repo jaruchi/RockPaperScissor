@@ -4,13 +4,13 @@ public abstract class BasePlayer {
     private int lostCount;
     private int winsCount;
 
-    public BasePlayer(String name){
-        this.name=name;
-        this.lostCount=0;
-        this.winsCount=0;
+    public BasePlayer(String name) {
+        this.name = name;
+        this.lostCount = 0;
+        this.winsCount = 0;
     }
 
-    public String getPlayerName(){
+    public String getPlayerName() {
         return name;
     }
 
@@ -22,13 +22,13 @@ public abstract class BasePlayer {
         return winsCount;
     }
 
-    public void win(){
+    public void win() {
         winsCount++;
     }
 
-    public void loose(){
+    public void loose() {
         lostCount++;
     }
 
-         public abstract String getUserInput();
+    public abstract String getUserInput() throws Exception;
 }

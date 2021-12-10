@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 import static java.lang.System.exit;
 
-public class Game {
+public class Game extends Display{
 
     Player userPlayer1;
     Player userPlayer2;
@@ -17,46 +17,31 @@ public class Game {
         this.userPlayer1 = userPlayer1;
         this.userPlayer2 = userPlayer2;
         this.computer = computer;
+        this.message = "Enter your choice:";
     }
 
+    @Override
     public void start() {
         String input = getUserInput();
         processInput(input);
     }
 
+    @Override
     public void render() {
 
         String s = "=== Let' Play === \n" +
                 "1. Type Computer to play against Computer\n" +
                 "2. Type Player to play again another Player\n" +
-                "";
+                "3. Type 'quit' to go back to the main menu.";
         System.out.println();
         System.out.println(s);
     }
-
-    public String getUserInput() {
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter your choice: ");
-        String userInput = scanner.nextLine().toLowerCase();
-        if (!validateUserInput(userInput)) {
-            System.out.println("Please provide a valid input...");
-            userInput = getUserInput();
-        }
-        return userInput;
-    }
-
-    public void pressAnyKeyToContinue() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Press enter to continue...");
-        scanner.nextLine();
-    }
-
+    @Override
     public boolean validateUserInput(String input) {
-        return input.equals("player") || input.equals("computer") || input.equals("quit");
+        return input.equals("player") || input.equals("computer")|| input.equals("quit");
     }
 
-    private void play(Player p1, Player p2) {
+    private void play(Player p1, Player p2) throws Exception {
         p1.render();
         String i1 = p1.getUserInput();
         p2.render();
@@ -98,20 +83,25 @@ public class Game {
     }
 
     public void processInput(String input) {
-        switch (input) {
-            case "player":
-                //get player info
-                play( userPlayer1, userPlayer2);
-                break;
-            case "computer":
-                play(userPlayer1, computer);
-                break;
-            default:
-                System.out.println("Going back to main menu.");
+        try {
+            switch (input) {
+                case "player":
+                    //get player info
+                    play(userPlayer1, userPlayer2);
+                    break;
+                case "computer":
+                    play(userPlayer1, computer);
+                    break;
+                default:
+                    System.out.println("Going back to main menu.");
+            }
+            System.out.println();
+            System.out.println("----x-x-x-x-x-x---Thanks for playing---x-x-x-x-x-x----");
+            System.out.println();
+        }catch(Exception e){
+            System.out.println("Exception caught!!! Not a valid input");
+            System.out.println("Going back to main menu");
         }
-        System.out.println();
-        System.out.println("----x-x-x-x-x-x---Thanks for playing---x-x-x-x-x-x----");
-        System.out.println();
         pressAnyKeyToContinue();
     }
 }
