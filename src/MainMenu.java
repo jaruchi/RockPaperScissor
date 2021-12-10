@@ -3,7 +3,11 @@ import java.util.Scanner;
 import static java.lang.System.exit;
 
 public class MainMenu {
+    private  GameHistory history ;
 
+    public MainMenu(){
+        history=new GameHistory();
+    }
     public void start(){
         String input = getUserInput();
         processInput(input);
@@ -39,14 +43,13 @@ public class MainMenu {
     public void processInput(String input) {
         switch (input) {
             case "play":
-                Game game = new Game();
+                Game game = new Game(history);
                 game.render();
                 game.start();
                 render();
                 start();
                 break;
             case "history":
-                GameHistory history = new GameHistory();
                 history.render();
                 history.start();
                 render();
