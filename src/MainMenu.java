@@ -3,17 +3,26 @@ import java.util.Scanner;
 import static java.lang.System.exit;
 
 public class MainMenu {
-    private  GameHistory history ;
+
+    Player userPlayer1;
+    Player userPlayer2;
+    Player computer;
+
 
     public MainMenu(){
-        history=new GameHistory();
+        this.userPlayer1 = new Player("Player 1");
+        this.userPlayer2 = new Player("Player 2");
+        this.computer = new AutoPlayer();
     }
+
     public void start(){
         String input = getUserInput();
         processInput(input);
     }
 
     public void render() {
+        System.out.println();
+
         System.out.println("Welcome to Rock, Paper, Scissors!\n" +
                 "\n" +
                 "MAIN MENU\n" +
@@ -24,13 +33,14 @@ public class MainMenu {
     }
 
     public String getUserInput() {
-
+        System.out.println();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter you option: ");
         String userInput = scanner.nextLine().toLowerCase();
-        //scanner.close();
+        System.out.println();
         if (!validateUserInput(userInput)) {
             System.out.println("Please provide a valid input...");
+            System.out.println();
             userInput = getUserInput();
         }
         return userInput;
@@ -43,20 +53,21 @@ public class MainMenu {
     public void processInput(String input) {
         switch (input) {
             case "play":
-                Game game = new Game(history);
+                Game game = new Game(userPlayer1,userPlayer2,computer);
                 game.render();
                 game.start();
                 render();
                 start();
                 break;
             case "history":
+                GameHistory history  =new GameHistory();
                 history.render();
                 history.start();
                 render();
                 start();
                 break;
             default:
-                System.out.println("Thanks for playing!!!Quiting the game.");
+                System.out.println("Quiting the game.");
                 exit(0);
         }
 

@@ -3,27 +3,27 @@ import java.util.Scanner;
 
 import static java.lang.System.exit;
 
-public class Player {
+public class Player extends BasePlayer{
 
-    private  String name;
-    
-    public Player(String name){
-        this.name=name;
+    public Player(String name) {
+        super(name);
     }
-    public String getPlayerName(){
-        return name;
-    }
+
     public void render() {
         System.out.println("Type 'rock', 'paper', or 'scissors' to play.\n" +
                 "Type 'quit' to go back to the main menu.");
+        System.out.println();
+
     }
 
+    @Override
     public String getUserInput() {
+        System.out.println();
         Scanner scanner = new Scanner(System.in);
-        System.out.print(this.name+" - your choice: ");
+        System.out.print(this.getPlayerName()+" - your choice: ");
         String userInput = scanner.nextLine().toLowerCase();
-        //scanner.close();
         if (!validateUserInput(userInput)) {
+            System.out.println();
             System.out.println("Please provide a valid input...");
             userInput = getUserInput();
         }
